@@ -1,0 +1,24 @@
+sudo apt-get update
+sudo apt install apache2 -y -- install an application 
+wget https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py  ---- install an agent 
+sudo apt-get install -y python2.7   ---- install an phyton 
+sudo python2.7 ./awslogs-agent-setup.py --region us-east-1    ------ with phython with this commadn you will tell agent to use this region 
+sudo service awslogs status  ----- check the status weather it is running or no 
+=======
+sudo nano /var/awslogs/etc/awslogs.conf   --------- here you change which you want to push 
+=======
+[/var/log/apache2/access.log]  ------ give the location where you want to push the logs 
+datetime_format = %d/%b/%Y:%H:%M:%S
+file = /var/log/apache2/access.log
+log_group_name = apache-access-logs
+log_stream_name = {instance_id}
+
+[/var/log/apache2/error.log]   
+datetime_format = %d/%b/%Y:%H:%M:%S
+file = /var/log/apache2/error.log
+log_group_name = apache-error-logs
+log_stream_name = {instance_id}
+
+========
+sudo service awslogs restart   ------ restart it once you make changes 
+sudo service awslogs status   ------- chech the status 
